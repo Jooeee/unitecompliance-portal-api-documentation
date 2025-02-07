@@ -134,6 +134,238 @@ paths:
           schema:
             type: string
 
+  #Booking - Create Fit to Work
+  /booking/create/clinical-interview:
+    post:
+      tags:
+        - booking
+      summary: Create Clinical Interview Booking
+      description: Create a booking for a clinical interview service
+      operationId: createClinicalInterviewBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createClinicalInterviewBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/clinical-appraisal:
+    post:
+      tags:
+        - booking
+      summary: Create Clinical Appraisal Booking
+      description: Create a booking for a clinical appraisal service
+      operationId: createClinicalAppraisalBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createClinicalAppraisalBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/blood-test:
+    post:
+      tags:
+        - booking
+      summary: Create Blood Test Booking
+      description: Create a booking for a blood test service
+      operationId: createBloodTestBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createBloodTestBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/radiation-badge:
+    post:
+      tags:
+        - booking
+      summary: Create Radiation Badge Booking
+      description: Create a booking for a radiation badge service
+      operationId: createRadiationBadgeBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRadiationBadgeBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/employment-reference:
+    post:
+      tags:
+        - booking
+      summary: Create Employment Reference Booking
+      description: Create a booking for an employment reference service
+      operationId: createEmploymentReferenceBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createEmploymentReferenceBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/placement-feedback:
+    post:
+      tags:
+        - booking
+      summary: Create Placement Feedback Booking
+      description: Create a booking for a placement feedback service
+      operationId: createPlacementFeedbackBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createPlacementFeedbackBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/fit-to-work-check:
+    post:
+      tags:
+        - booking
+      summary: Create Fit to Work Check Booking
+      description: Create a booking for a fit to work check service
+      operationId: createFitToWorkCheckBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createFitToWorkCheckBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/practical-training:
+    post:
+      tags:
+        - booking
+      summary: Create Practical Training Booking
+      description: Create a booking for a practical training service
+      operationId: createPracticalTrainingBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createPracticalTrainingBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/dbs-check:
+    post:
+      tags:
+        - booking
+      summary: Create Standard DBS Check Booking
+      description: Create a booking for a standard DBS check service
+      operationId: createStandardDBSCheckBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createDBSCheckBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/right-to-work-check:
+    post:
+      tags:
+        - booking
+      summary: Create Right to Work Check Booking
+      description: Create a booking for a right to work check service
+      operationId: createRightToWorkCheckBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createRightToWorkCheckBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  /booking/create/digital-id-check:
+    post:
+      tags:
+        - booking
+      summary: Create Digital ID Check Booking
+      description: Create a booking for a digital ID check service
+      operationId: createDigitalIDCheckBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createDigitalIDCheckBooking"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
 components:
   securitySchemes:
     api-key:
@@ -307,11 +539,9 @@ components:
         - phone
         - jobTitle
         - onboardingOption
-
     #End Create Candidate
 
     #Start Update Candidate
-
     updateCandidate:
       type: object
       properties:
@@ -326,11 +556,501 @@ components:
         jobTitle:
           $ref: '#/components/schemas/createCandidate/properties/jobTitle'
         isActive:
-          description: The UUID of the candidate to update
+          description: Sets the status of the candidate to active/inactive
           type: boolean
           example: true
-
     #End Update Candidate
+
+    #Start Create Clinical Interview Booking
+    createClinicalInterviewBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          description: The method of booking
+          type: string
+          example: zoom
+          enum:
+            - form
+            - zoom
+            - whatsapp
+        payment:
+          $ref: '#/components/schemas/payment'
+        dateSlot:
+          $ref: '#/components/schemas/bookingDateStructure'
+        template:
+          type: string
+          example: clinical-interview-default
+      required:
+        - candidateId
+        - userId
+        - bookingMethod
+        - payment
+        - template
+    #End Create Clinical Interview Booking
+
+    #Start Create Clinical Appraisal Booking
+    createClinicalAppraisalBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          description: The method of booking
+          type: string
+          example: zoom
+          enum:
+            - form
+            - zoom
+            - whatsapp
+          payment:
+            $ref: '#/components/schemas/payment'
+          dateSlot:
+            $ref: '#/components/schemas/bookingDateStructure'
+          template:
+            type: string
+            example: clinical-appraisal-default
+          required:
+            - candidateId
+            - userId
+            - bookingMethod
+            - payment
+            - template
+    #End Create Clinical Appraisal Booking
+
+    #Start Create Blood Test Booking
+    createBloodTestBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Blood Test Booking
+
+    #Start Create Radiation Badge Booking
+    createRadiationBadgeBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Radiation Badge Booking
+
+    #Start Create Fit to Work Check Booking
+    createFitToWorkCheckBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Fit to Work Check Booking
+
+    #Start Create Practical Training Booking
+    createPracticalTrainingBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Practical Training Booking
+
+    #Start Create DBS Check Booking
+    createDBSCheckBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create DBS Check Booking
+
+    #Start Create Right to Work Booking
+    createRightToWorkBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Right to Work Booking
+
+    #Start Create Digital ID Booking
+    createDigitalIDBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Digital ID Booking
+
+    #Start Create Employment Reference Booking
+    createEmploymentReferenceBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Employment Reference Booking
+
+    #Start Create Placement Feedback Booking
+    createPlacementFeedbackBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Placement Feedback Booking
+
+    #Start Create Right to Work Check Booking
+    createRightToWorkCheckBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Right to Work Check Booking
+
+    #Start Create Digital ID Check Booking
+    createDigitalIDCheckBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Digital ID Check Booking
+
+
+    #Start Core Booking Fields
+    coreBookingFields:
+      type: object
+      properties:
+        candidateId:
+          type: string
+          format: uuid
+          description: The UUID of the candidate you wish to create the booking for
+          example: "123e4567-e89b-12d3-a456-426614174000"
+
+        userId:
+          type: string
+          format: uuid
+          description: The UUID of the user creating the booking
+          example: "123e4567-e89b-12d3-a456-426614174000"
+    #End Core Booking Fields
+
+    #Start Date Slot Booking Structure
+    bookingDateStructure:
+      type: object
+      required:
+        - date
+        - slot
+      properties:
+        date:
+          type: string
+          format: date
+          description: The date of the booking in YYYY-MM-DD format
+          example: "2026-02-04"
+
+        slot:
+          type: string
+          pattern: '^([0-1][0-9]|2[0-3]):[0-5][0-9]-([0-1][0-9]|2[0-3]):[0-5][0-9]$'
+          description: Time slot in 24-hour format (HH:mm-HH:mm)
+          example: "10:00-10:30"
+    #End Date Slot Booking Structure
+
+    #Start Booking Payment Structure
+    payment:
+      type: object
+      properties:
+        option:
+          type: string
+          enum:
+            - organisation
+            - candidate
+            - split
+          description: Who is responsible for the payment
+          example: organisation
+        organisationPayment:
+          type: number
+          format: float
+          nullable: true
+          description: Amount to be paid by organisation
+          example: null
+        candidatePayment:
+          type: number
+          format: float
+          nullable: true
+          description: Amount to be paid by candidate
+          example: null
+        splitAmountType:
+          type: string
+          enum:
+            - currency
+            - percentage
+          description: Whether the split is based on currency amount or percentage
+          example: currency
+        payment_method:
+          type: string
+          enum:
+            - invoice
+            - card
+          description: Method of payment
+          example: invoice
+    #End Payment Structure
+
+    #Start Address Structure
+    addressStructure:
+      type: object
+      required:
+        - addressLine1
+        - townCity
+        - country
+        - postcode
+      properties:
+        addressLine1:
+          type: string
+          description: First line of address
+          example: "Address Line 1"
+
+        addressLine2:
+          type: string
+          description: Second line of address (optional)
+          example: "Address Line 2"
+
+        townCity:
+          type: string
+          description: Town or city name
+          example: "Town"
+
+        county:
+          type: string
+          description: County (optional)
+          example: "County"
+
+        country:
+          type: string
+          description: Two-letter country code (ISO 3166-1 alpha-2)
+          enum:
+            - AD
+            - AE
+            - AF
+            - AL
+            - AM
+            - AO
+            - AR
+            - AT
+            - AU
+            - AZ
+            - BA
+            - BB
+            - BD
+            - BE
+            - BF
+            - BG
+            - BH
+            - BI
+            - BJ
+            - BN
+            - BO
+            - BR
+            - BS
+            - BT
+            - BW
+            - BY
+            - BZ
+            - CA
+            - CD
+            - CF
+            - CG
+            - CH
+            - CI
+            - CL
+            - CM
+            - CN
+            - CO
+            - CR
+            - CU
+            - CV
+            - CY
+            - CZ
+            - DE
+            - DJ
+            - DK
+            - DM
+            - DO
+            - DZ
+            - EC
+            - EE
+            - EG
+            - ER
+            - ES
+            - ET
+            - FI
+            - FJ
+            - FM
+            - FR
+            - GA
+            - GB
+            - GD
+            - GE
+            - GG
+            - GH
+            - GI
+            - GM
+            - GN
+            - GQ
+            - GR
+            - GT
+            - GW
+            - GY
+            - HN
+            - HR
+            - HT
+            - HU
+            - ID
+            - IE
+            - IL
+            - IM
+            - IN
+            - IQ
+            - IR
+            - IS
+            - IT
+            - JE
+            - JM
+            - JO
+            - JP
+            - KE
+            - KG
+            - KH
+            - KI
+            - KM
+            - KN
+            - KP
+            - KR
+            - KW
+            - KZ
+            - LA
+            - LB
+            - LC
+            - LI
+            - LK
+            - LR
+            - LS
+            - LT
+            - LU
+            - LV
+            - LY
+            - MA
+            - MC
+            - MD
+            - ME
+            - MG
+            - MH
+            - MK
+            - ML
+            - MM
+            - MN
+            - MR
+            - MT
+            - MU
+            - MV
+            - MW
+            - MX
+            - MY
+            - MZ
+            - NA
+            - NE
+            - NG
+            - NI
+            - NL
+            - NO
+            - NP
+            - NR
+            - NZ
+            - OM
+            - PA
+            - PE
+            - PG
+            - PH
+            - PK
+            - PL
+            - PS
+            - PT
+            - PW
+            - PY
+            - QA
+            - RO
+            - RS
+            - RU
+            - RW
+            - SA
+            - SB
+            - SC
+            - SD
+            - SE
+            - SG
+            - SI
+            - SK
+            - SL
+            - SM
+            - SN
+            - SO
+            - SR
+            - SS
+            - ST
+            - SV
+            - SY
+            - SZ
+            - TD
+            - TG
+            - TH
+            - TJ
+            - TL
+            - TM
+            - TN
+            - TO
+            - TR
+            - TT
+            - TV
+            - TW
+            - TZ
+            - UA
+            - UG
+            - US
+            - UY
+            - UZ
+            - VA
+            - VC
+            - VE
+            - VN
+            - VU
+            - WS
+            - XK
+            - YE
+            - ZA
+            - ZM
+            - ZW
+          example: "GB"
+
+        postcode:
+          type: string
+          description: Postcode
+          example: "XX1 1XX"
+          #End Address Structure
 
     connectionTestResult:
       type: object
@@ -374,7 +1094,7 @@ components:
 
     responses:
       "200":
-      # ... your existing 200 response ...
+      # Add 200 response
       "400":
         description: Bad Request
         content:
@@ -382,7 +1102,7 @@ components:
             schema:
               $ref: "#/components/schemas/errorResponse"
       "401":
-      # ... your existing 401 response ...
+      # Add 401 response
       "403":
         description: Forbidden
         content:
