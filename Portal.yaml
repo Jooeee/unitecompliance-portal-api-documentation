@@ -1,0 +1,403 @@
+openapi: 3.1.0
+info:
+  title: Unite Compliance Portal
+  description: |
+    The Unite Compliance Portal RESTful API allows you to fully interact with the Unite Compliance Portal to create and manage: candidates, bookings and retrieve results/documents. To create a sandbox environment, please contact Unite Compliance.
+
+    Last update: 2025-02-06
+  version: 1.0.0
+  termsOfService: https://unitecompliance.co.uk/api-terms-and-conditions
+  contact:
+    name: Unite Compliance
+    email: help@unitecompliance.co.uk
+    url: https://unitecompliance.co.uk/apis
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+    - url: https://dev.certifit.co.uk/api
+      description: Sandbox Server
+    - url: https://certifit.co.uk/api
+      description: Production Server
+
+tags:
+  - name: connection
+    description: Connection Testing
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+
+  - name: candidate
+    description: Everything related to candidates
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+  - name: booking
+    description: Everything related to bookings
+
+paths:
+  #Connection - Test
+  /connection/test:
+    get:
+      tags:
+        - connection
+      summary: Test connection to the API
+      description: Send a GET request to this endpoint to verify that your connection to the server is functioning properly.
+      operationId: connectionTest
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/connectionTestResult"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/connectionTestResult"
+        "401":
+          description: Unauthorised
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/response401"
+      security:
+        - api-key: [ ]
+
+  #Candidate - Create
+  /candidate/create:
+    post:
+      tags:
+        - candidate
+      summary: Create a candidate
+      description: Send a POST request to create a candidate
+      operationId: createCandidate
+      requestBody:
+        description: Send a POST request to create a candidate
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createCandidate"
+
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Candidate - Update
+  /candidate/update{candidateId}:
+    put:
+      tags:
+        - candidate
+      summary: Update a candidate
+      description: Send a PUT request to update a candidate's details
+      operationId: updateCandidate
+      parameters:
+        - name: candidateId
+          in: path
+          description: The ID of the candidate that's being updated
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        description: Send a PUT request to update a candidate's details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateCandidate"
+
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Candidate - Delete
+  /candidate/delete/{candidateId}:
+    delete:
+      tags:
+        - candidate
+      summary: Delete a candidate
+      description: Send a DELETE request to delete a candidate
+      operationId: deleteCandidate
+      parameters:
+        - name: candidateId
+          in: path
+          description: The ID of the candidate that's being deleted
+          required: true
+          schema:
+            type: string
+
+components:
+  securitySchemes:
+    api-key:
+      type: apiKey
+      name: X-API-Key  # or whatever header name you use
+      in: header
+      description: API key for authentication
+
+  schemas:
+
+    #Start Create Candidate
+    createCandidate:
+      type: object
+      properties:
+        firstName:
+          description: The candidate's first name
+          type: string
+          example: Joe
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+
+        lastName:
+          description: The candidate's last name
+          type: string
+          example: Bloggs
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+
+        email:
+          description: The candidate's email address
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 64
+          pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+          example: test@test.co.uk
+
+        phone:
+          description: The candidate's phone number
+          type: string
+          example: "012345678910"
+
+        jobTitle:
+          description: The candidate's job title
+          type: string
+          example: associate-ambulance-practitioner
+          enum:
+            - counsellor
+            - health-care-assistant
+            - health-education-advisor
+            - mental-health-practitioner
+            - nursing-associate
+            - occupational-therapy-assistant
+            - pals
+            - phlebotomist
+            - physician-assistant
+            - physiotherapy-assistant
+            - play-specialist
+            - pre-reg-pharmacist
+            - rehabilitation-assistant
+            - healthcare-support-worker
+            - medical-laboratory-assistant
+            - associate-ambulance-practitioner
+            - first-responder
+            - urgent-care-assistant
+            - emergency-care-assistant
+            - financial-staff
+            - hr-staff
+            - it-staff
+            - library-staff
+            - operational-staff
+            - researcher
+            - clinical-coder
+            - advanced-clinical-practitioner
+            - operating-department-practitioner
+            - arts-therapist
+            - audiologist
+            - chiropodist-podiatrist
+            - dietitian-nutritionist
+            - occupational-therapist
+            - orthoptist
+            - paramedic
+            - physiotherapist
+            - diagnostic-radiographer
+            - therapeutic-radiographer
+            - speech-language-therapist
+            - biomedical-scientist
+            - nurse-practitioner
+            - nurse
+            - community-nurse
+            - community-nurse-practitioner
+            - health-visitor
+            - mental-health-nurse
+            - midwife
+            - midwife-consultant
+            - midwife-specialist-practitioner
+            - military-nurse
+            - matron
+            - nurse-consultant
+            - sister-charge-nurse
+            - chaplain
+            - clinical-psychologist
+            - laboratory-technician
+            - lecturer-teacher
+            - pharmacist
+            - physician-associate
+            - psychotherapist
+            - social-worker
+            - general-surgeon
+            - cardiothoracic-surgeon
+            - neurosurgeon
+            - oral-and-maxillofacial-surgeon
+            - ent-surgeon
+            - paediatric-surgeon
+            - plastic-surgeon
+            - trauma-and-orthopaedic-surgeon
+            - urologist-surgeon
+            - vascular-surgeon
+            - dentist
+            - hygienist
+            - general-practitioner
+            - doctor
+            - radiologist
+            - Anaesthetist
+            - family-medicine-physician
+            - paediatrician
+            - cardiologist
+            - endocrinologist
+            - neurologist
+            - psychiatrist
+            - pulmonologist
+            - dermatologist
+            - nephrologist
+            - rheumatologist
+            - gastroenterologist
+            - haematologist
+            - oncologist
+            - allergist-immunologist
+            - geriatrician
+            - ophthalmologist
+            - infectious-disease-specialist
+            - palliative-care-physician
+            - junior-doctor
+
+        onboardingOption:
+          description: The candidate's method of onboarding. Automatic will send a link to the candidate's email address for them to complete an onboarding form.
+          type: string
+          example: automatic
+          enum:
+            - automatic
+            - manual
+
+        users:
+          description: The UUID(s) of the user(s) you wish to associate the candidate with
+          type: array
+          example:
+            - 123e4567-e89b-12d3-a456-426614174000
+
+        teams:
+          description: The UUID(s) of the team(s) you wish to associate the candidate with
+          type: array
+          example:
+            - 123e4567-e89b-12d3-a456-426614174000
+
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - jobTitle
+        - onboardingOption
+
+    #End Create Candidate
+
+    #Start Update Candidate
+
+    updateCandidate:
+      type: object
+      properties:
+        firstName:
+          $ref: '#/components/schemas/createCandidate/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/createCandidate/properties/lastName'
+        email:
+          $ref: '#/components/schemas/createCandidate/properties/email'
+        phone:
+          $ref: '#/components/schemas/createCandidate/properties/phone'
+        jobTitle:
+          $ref: '#/components/schemas/createCandidate/properties/jobTitle'
+        isActive:
+          description: The UUID of the candidate to update
+          type: boolean
+          example: true
+
+    #End Update Candidate
+
+    connectionTestResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+
+        msg:
+          type: string
+          example: Your connection is successful.
+
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: fail
+        code:
+          type: integer
+          format: int32
+          example: 400
+        msg:
+          type: string
+          example: Error message details
+        details:
+          type: object
+          nullable: true
+          example: null
+
+    response401:
+      type: object
+      properties:
+        status:
+          type: string
+          example: fail
+
+        msg:
+          type: string
+          example: Unauthorized
+
+    responses:
+      "200":
+      # ... your existing 200 response ...
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/errorResponse"
+      "401":
+      # ... your existing 401 response ...
+      "403":
+        description: Forbidden
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/errorResponse"
+      "429":
+        description: Too Many Requests
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/errorResponse"
+      "500":
+        description: Internal Server Error
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/errorResponse"
