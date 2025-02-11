@@ -1,4 +1,5 @@
 openapi: 3.1.0
+#Info Start
 info:
   title: Unite Compliance Portal
   description: |
@@ -14,12 +15,17 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+#Info End
+
+#Servers Start
 servers:
     - url: https://dev.certifit.co.uk/api
       description: Sandbox Server
     - url: https://certifit.co.uk/api
       description: Production Server
+#Servers End
 
+#Tags Start
 tags:
   - name: connection
     description: Connection Testing
@@ -35,7 +41,9 @@ tags:
 
   - name: booking
     description: Everything related to bookings
+#Tags Start
 
+#Paths Start
 paths:
   #Connection - Test
   /connection/test:
@@ -62,7 +70,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/response401"
       security:
-        - api-key: [ ]
+        - api-key: []
 
   #Candidate - Create
   /candidate/create:
@@ -86,9 +94,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
 
   #Candidate - Update
-  /candidate/update{candidateId}:
+  /candidate/update/{candidateId}:
     put:
       tags:
         - candidate
@@ -117,6 +127,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
 
   #Candidate - Delete
   /candidate/delete/{candidateId}:
@@ -133,8 +145,41 @@ paths:
           required: true
           schema:
             type: string
+      security:
+        - api-key: []
 
-  #Booking - Create Fit to Work
+  #Candidate - Create Note
+  /candidate/note/create/{candidateId}:
+    post:
+      tags:
+        - candidate
+      summary: Create a candidate note
+      description: Add a note to a candidate
+      operationId: createCandidateNote
+      parameters:
+        - name: candidateId
+          in: path
+          description: The ID of the candidate you wish to add a comment to
+          required: true
+          schema:
+            type: string
+      security:
+        - api-key: []
+      requestBody:
+        description: Send a POST request to create a candidate note
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createCandidateNote"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Booking - Create Clinical Interview
   /booking/create/clinical-interview:
     post:
       tags:
@@ -156,6 +201,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Clinical Appraisal
   /booking/create/clinical-appraisal:
     post:
       tags:
@@ -177,6 +223,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Blood Test
   /booking/create/blood-test:
     post:
       tags:
@@ -198,6 +245,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Radiation Badge
   /booking/create/radiation-badge:
     post:
       tags:
@@ -219,6 +267,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Fit to Work
   /booking/create/employment-reference:
     post:
       tags:
@@ -240,6 +289,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Placement Feedback
   /booking/create/placement-feedback:
     post:
       tags:
@@ -261,6 +311,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Fit to Work Check
   /booking/create/fit-to-work-check:
     post:
       tags:
@@ -282,6 +333,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Practical Training
   /booking/create/practical-training:
     post:
       tags:
@@ -303,6 +355,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create DBS Check
   /booking/create/dbs-check:
     post:
       tags:
@@ -324,6 +377,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Right to Work Check
   /booking/create/right-to-work-check:
     post:
       tags:
@@ -345,6 +399,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Booking - Create Digital ID Check
   /booking/create/digital-id-check:
     post:
       tags:
@@ -357,7 +412,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/createDigitalIDCheckBooking"
+              $ref: "#/components/schemas/createDigitalIdCheckBooking"
       responses:
         "200":
           description: Successful Operation
@@ -365,7 +420,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+#Paths End
 
+#Components Start
 components:
   securitySchemes:
     api-key:
@@ -374,8 +431,24 @@ components:
       in: header
       description: API key for authentication
 
+  #Schemas Start
   schemas:
+  #Start Connection Schema
+    #Start Connection Test
+    connectionTestResult:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
 
+        msg:
+          type: string
+          example: Your connection is successful.
+    #Start Connection Test
+  #End Connection Schema
+
+  #Start Candidate Schema
     #Start Create Candidate
     createCandidate:
       type: object
@@ -561,6 +634,21 @@ components:
           example: true
     #End Update Candidate
 
+    #Start Create Candidate Note
+    createCandidateNote:
+      type: object
+      properties:
+        note:
+          description: The content of the note you wish to add
+          type: string
+          example: This is a test note.
+        userId:
+          description: The UUID of the user creating the note
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+    #End Create Candidate Note
+  #End Candidate Schema
+
+  #Start Booking Schema
     #Start Create Clinical Interview Booking
     createClinicalInterviewBooking:
       type: object
@@ -578,7 +666,7 @@ components:
             - zoom
             - whatsapp
         payment:
-          $ref: '#/components/schemas/payment'
+          $ref: '#/components/schemas/paymentStructure'
         dateSlot:
           $ref: '#/components/schemas/bookingDateStructure'
         template:
@@ -608,19 +696,20 @@ components:
             - form
             - zoom
             - whatsapp
-          payment:
-            $ref: '#/components/schemas/payment'
-          dateSlot:
-            $ref: '#/components/schemas/bookingDateStructure'
-          template:
-            type: string
-            example: clinical-appraisal-default
-          required:
-            - candidateId
-            - userId
-            - bookingMethod
-            - payment
-            - template
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
+        dateSlot:
+          $ref: '#/components/schemas/bookingDateStructure'
+        template:
+          type: string
+          description: The name of the template to use
+          example: clinical-appraisal-default
+      required:
+        - candidateId
+        - userId
+        - bookingMethod
+        - payment
+        - template
     #End Create Clinical Appraisal Booking
 
     #Start Create Blood Test Booking
@@ -631,6 +720,35 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        services:
+          type: array
+          description: The slug(s) of the blood test
+          items:
+            type: string
+          example: ["measles-blood-test", "mumps-blood-test"]
+          enum:
+            - measles-blood-test
+            - mumps-blood-test
+            - rubella-blood-test
+            - mmr-blood-test
+            - varicella-blood-test
+            - tuberculosis-blood-test
+            - hepatitis-b-surface-antibody-blood-test
+            - hepatitis-b-surface-antigen-blood-test
+            - hepatitis-c-blood-test
+            - hiv-blood-test
+            - non-epp-profile-blood-test
+            - epp-profile-blood-test
+        bookingMethod:
+          description: The booking method
+          type: string
+          enum:
+            - home-test-kit
+          example: home-test-kit
+        address:
+          $ref: '#/components/schemas/addressStructure'
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
     #End Create Blood Test Booking
 
     #Start Create Radiation Badge Booking
@@ -641,6 +759,21 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        services:
+          type: string
+          enum:
+            - radiation-badge-body
+            - radiation-badge-extremity
+          example: radiation-badge-body
+        bookingMethod:
+          type: string
+          enum:
+            - send-to-candidate
+          example: send-to-candidate
+        address:
+          $ref: '#/components/schemas/addressStructure'
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
     #End Create Radiation Badge Booking
 
     #Start Create Fit to Work Check Booking
@@ -651,6 +784,30 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          enum:
+            - form
+            - drawer-form
+          example: form
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
+        dateOfBirth:
+          type: string
+          format: date
+          description: Date of birth in ISO 8601 format (YYYY-MM-DD)
+          example: "1990-01-13"
+        clearanceLevel:
+          type: string
+          enum:
+            - epp
+            - non-epp
+            - non-clinical
+        healthQuestionnaire:
+          type: string
+          format: base64
+          description: Base64 encoded health questionnaire data
+          example: "JVBERi0xLjMKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvUGFnZXMKL0NvdW50IDEKL0tpZHMgWzMgMCBSXQo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMSAwIFIKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAxIDAgUgovTWVkaWFCb3ggWzAgMCA2MTIgNzkyXQovUmVzb3VyY2VzIDw8Pj4KL0NvbnRlbnRzIFtdCj4+CmVuZG9iagp4cmVmCjAgNAowMDAwMDAwMDAwIDY1NTM1IGYKMDAwMDAwMDAxNSAwMDAwMCBuCjAwMDAwMDAwNzQgMDAwMDAgbgowMDAwMDAwMTIzIDAwMDAwIG4KdHJhaWxlcgo8PAovUm9vdCAyIDAgUgovU2l6ZSA0Cj4+CiUlRU9G"
     #End Create Fit to Work Check Booking
 
     #Start Create Practical Training Booking
@@ -661,6 +818,16 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          example: zoom
+          enum:
+            - in-person
+            - zoom
+        dateSlot:
+          $ref: '#/components/schemas/bookingDateStructure'
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
     #End Create Practical Training Booking
 
     #Start Create DBS Check Booking
@@ -671,47 +838,20 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        services:
+          type: array
+          description: The level of DBS check required
+          items:
+            type: string
+            enum:
+              - enhanced-dbs-check
+              - standard-dbs-check
+          example: ["enhanced-dbs-check"]
+          minItems: 1
+          required: true
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
     #End Create DBS Check Booking
-
-    #Start Create Right to Work Booking
-    createRightToWorkBooking:
-      type: object
-      properties:
-        candidateId:
-          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
-        userId:
-          $ref: '#/components/schemas/coreBookingFields/properties/userId'
-    #End Create Right to Work Booking
-
-    #Start Create Digital ID Booking
-    createDigitalIDBooking:
-      type: object
-      properties:
-        candidateId:
-          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
-        userId:
-          $ref: '#/components/schemas/coreBookingFields/properties/userId'
-    #End Create Digital ID Booking
-
-    #Start Create Employment Reference Booking
-    createEmploymentReferenceBooking:
-      type: object
-      properties:
-        candidateId:
-          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
-        userId:
-          $ref: '#/components/schemas/coreBookingFields/properties/userId'
-    #End Create Employment Reference Booking
-
-    #Start Create Placement Feedback Booking
-    createPlacementFeedbackBooking:
-      type: object
-      properties:
-        candidateId:
-          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
-        userId:
-          $ref: '#/components/schemas/coreBookingFields/properties/userId'
-    #End Create Placement Feedback Booking
 
     #Start Create Right to Work Check Booking
     createRightToWorkCheckBooking:
@@ -721,19 +861,282 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          enum:
+            - self-form
+        sharecode:
+          type: object
+          description: Share code details for right to work check
+          required:
+            - sharecode
+            - company
+            - dob
+          properties:
+            sharecode:
+              type: string
+              description: Government issued share code for right to work check
+              minLength: 9
+              maxLength: 9
+              example: "A1BCD23E4"
+            company:
+              type: string
+              description: Company name for the right to work check
+              example: "Unite Compliance"
+            dob:
+              type: string
+              format: date
+              description: Date of birth in YYYY-MM-DD format
+              example: "1990-01-13"
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
     #End Create Right to Work Check Booking
 
     #Start Create Digital ID Check Booking
-    createDigitalIDCheckBooking:
+    createDigitalIdCheckBooking:
       type: object
       properties:
         candidateId:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          example: drawer-form
+          enum:
+            - drawer-form
+        did:
+          type: object
+          description: Digital ID verification documents and selfie
+          required:
+            - primary
+            - supporting
+            - selfie
+            - image_match
+          properties:
+            primary:
+              type: object
+              required:
+                - document
+                - files
+              properties:
+                document:
+                  type: string
+                  enum:
+                    - biometric-residence-permit
+                    - passport-uk
+                    - driving-licence-uk
+                  example: "biometric-residence-permit"
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: base64
+                  minItems: 1
+                  description: Array of base64 encoded images of the primary document
+                  example: [ "/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD..." ]
+            supporting:
+              type: object
+              required:
+                - document
+                - files
+              properties:
+                document:
+                  type: string
+                  enum:
+                    - utility-bill-uk
+                    - bank-statement-uk
+                    - council-tax-bill
+                  example: "utility-bill-uk"
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: base64
+                  minItems: 1
+                  description: Array of base64 encoded images of the supporting document
+                  example: [ "/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD..." ]
+            selfie:
+              type: string
+              format: base64
+              description: Base64 encoded selfie image
+              example: "/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD..."
+            image_match:
+              type: string
+              enum:
+                - y
+                - n
+              description: Indicates if the selfie matches the ID document photo
+              example: "y"
+          payment:
+            $ref: '#/components/schemas/paymentStructure'
+
     #End Create Digital ID Check Booking
 
+    #Start Create Employment Reference Booking
+    createEmploymentReferenceBooking:
+      type: object
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          enum:
+            - form
+        template:
+          type: string
+          example: employment-reference-default
+        referenceRequirements:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - amount
+                - year
+            count:
+              type: integer
+              example: 3
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
+      required:
+        - candidateId
+        - userId
+        - bookingMethod
+        - template
+        - referenceRequirements
+        - payment
+    #End Create Employment Reference Booking
 
+    #Start Create Placement Feedback Booking
+    createPlacementFeedbackBooking:
+      type: object
+      properties:
+        bookingMethod:
+          type: string
+          example: form
+          enum:
+            - form
+            - drawer-form
+      oneOf:
+        - $ref: '#/components/schemas/endOfPlacementForm'
+        - $ref: '#/components/schemas/endOfPlacementSelfComplete'
+
+    # Form version schema
+    endOfPlacementForm:
+      type: object
+      required:
+        - candidateId
+        - userId
+        - booking_Method
+        - payment
+        - template
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          description: Test
+          example: form
+          enum:
+            - form
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
+        template:
+          type: string
+          enum:
+            - end-of-placement-feedback-default
+          example: end-of-placement-feedback-default
+
+    # Self Complete version schema
+    endOfPlacementSelfComplete:
+      type: object
+      required:
+        - candidateId
+        - userId
+        - bookingMethod
+        - dateOfBirth
+        - references
+        - payment
+        - template
+      properties:
+        candidateId:
+          $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
+        userId:
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        bookingMethod:
+          type: string
+          enum: [ drawer-form ]
+          example: "drawer-form"
+        dateOfBirth:
+          type: string
+          format: date
+          example: "1990-01-13"
+        references:
+          type: array
+          items:
+            type: object
+            required:
+              - organisation
+              - referenceType
+              - firstName
+              - lastName
+              - position
+              - email
+              - roleDuringEmployment
+              - phone
+              - dateFrom
+              - dateTo
+            properties:
+              organisation:
+                type: string
+                example: "SM24"
+              referenceType:
+                type: string
+                enum: [ "Professional Reference" ]
+                example: "Professional Reference"
+              firstName:
+                type: string
+                example: "Joe"
+              lastName:
+                type: string
+                example: "Bloggs"
+              position:
+                type: string
+                example: "Nurse"
+              email:
+                type: string
+                format: email
+                example: "testemail@email.com"
+              roleDuringEmployment:
+                type: string
+                example: "Nurse"
+              phone:
+                type: string
+                pattern: '^\+[1-9]\d{1,14}$'
+                example: "+923337039502"
+              dateFrom:
+                type: string
+                format: date
+                example: "2001-01-01"
+              dateTo:
+                type: string
+                format: date
+                example: "2010-01-01"
+        payment:
+          $ref: '#/components/schemas/paymentStructure'
+        template:
+          type: string
+          enum: [ end-of-placement-feedback-default ]
+          example: "end-of-placement-feedback-default"
+    #End Create Placement Feedback Booking
+  #End Booking Schema
+
+  #Start General Structure Schema
     #Start Core Booking Fields
     coreBookingFields:
       type: object
@@ -772,7 +1175,7 @@ components:
     #End Date Slot Booking Structure
 
     #Start Booking Payment Structure
-    payment:
+    paymentStructure:
       type: object
       properties:
         option:
@@ -1050,18 +1453,8 @@ components:
           type: string
           description: Postcode
           example: "XX1 1XX"
-          #End Address Structure
-
-    connectionTestResult:
-      type: object
-      properties:
-        status:
-          type: string
-          example: success
-
-        msg:
-          type: string
-          example: Your connection is successful.
+    #End Address Structure
+  #End General Structure Schema
 
     errorResponse:
       type: object
@@ -1121,3 +1514,4 @@ components:
           application/json:
             schema:
               $ref: "#/components/schemas/errorResponse"
+#Components End
