@@ -377,9 +377,9 @@ paths:
     post:
       tags:
         - booking
-      summary: Create Standard DBS Check Booking
-      description: Create a booking for a standard DBS check service
-      operationId: createStandardDBSCheckBooking
+      summary: Create a DBS Check Booking
+      description: Create a booking for a DBS check
+      operationId: createDBSCheckBooking
       requestBody:
         required: true
         content:
@@ -591,7 +591,7 @@ paths:
       tags:
         - service information
       summary: Get the schedule of a service
-      operationId: getServiceSchedule
+      operationId: getServiceSchedule121
       parameters:
         - name: serviceSlug
           in: path
