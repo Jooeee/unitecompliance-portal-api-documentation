@@ -41,6 +41,9 @@ tags:
 
   - name: booking
     description: Everything related to bookings
+
+  - name: service information
+    description: Information about our services
 #Tags Start
 
 #Paths Start
@@ -420,6 +423,258 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+
+  #Booking - Create Note
+  /booking/note/create/{bookingId}:
+    post:
+      tags:
+        - booking
+      summary: Create a note for a booking
+      operationId: createBookingNote
+      parameters:
+        - name: bookingId
+          in: path
+          description: The UUID of the booking to add a note to
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBookingNote'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Booking - Cancel
+  /booking/cancel/{bookingId}:
+    get:
+      tags:
+        - booking
+      summary: Cancel a booking
+      operationId: cancelBooking
+      parameters:
+        - name: bookingId
+          in: path
+          description: The UUID of the booking to cancel
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Booking - Refund
+  /booking/refund/{bookingId}/{refundType}:
+    post:
+      tags:
+        - booking
+      summary: Refund a booking
+      operationId: refundBooking
+      parameters:
+        - name: bookingId
+          in: path
+          description: The UUID of the booking to cancel
+          required: true
+          schema:
+            type: string
+        - name: refundType
+          in: path
+          description: The type of refund required (organisation | candidate)
+          required: true
+          schema:
+            type: string
+            enum:
+              - organisation
+              - candidate
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Booking - Amend
+  /booking/amend/{bookingId}:
+    put:
+      tags:
+        - booking
+      summary: Amend a booking
+      operationId: amendBooking
+      parameters:
+        - name: bookingId
+          in: path
+          description: The UUID of the booking to amend
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Service Information - Get Practical Training Schedule
+  /service/schedule/{serviceSlug}/{bookingMethodSlug}:
+    get:
+      tags:
+        - service information
+      summary: Get the schedule of a service
+      operationId: getServiceSchedule
+      parameters:
+        - name: serviceSlug
+          in: path
+          description: The slug of the service
+          required: true
+          schema:
+            type: string
+        - name: bookingMethodSlug
+          in: path
+          description: The slug of the booking method
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Service Information - Get 121 Training Schedule
+  /service/schedule/{serviceSlug}/{bookingMethodSlug}/{date}:
+    get:
+      tags:
+        - service information
+      summary: Get the schedule of a service
+      operationId: getServiceSchedule
+      parameters:
+        - name: serviceSlug
+          in: path
+          description: The slug of the service
+          required: true
+          schema:
+            type: string
+        - name: bookingMethodSlug
+          in: path
+          description: The slug of the booking method
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: path
+          description: The date you wish to get the schedule of
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #User - Get list
+  /organisation/users:
+    get:
+      tags:
+        - user
+      summary: Get a list of users
+      operationId: getUsers
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #User - Create User
+  /organisation/user/create:
+    post:
+      tags:
+        - user
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #User - Update User
+  /organisation/user/update/{userId}:
+    put:
+      tags:
+        - user
+      summary: Update a user
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          description: The UUID of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateUser'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #User - Delete User
+  /organisation/user/delete/{userId}:
+    delete:
+      tags:
+        - user
+      summary: Delete a user
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          description: The UUID of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
 #Paths End
 
 #Components Start
@@ -452,7 +707,50 @@ components:
     #Start Create Candidate
     createCandidate:
       type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - jobTitle
+        - onboardingOption
       properties:
+        title:
+          description: The candidate's title
+          type: string
+          enum:
+            - mr
+            - mrs
+            - miss
+            - ms
+            - baron
+            - baroness
+            - brigadier
+            - canon
+            - captain
+            - dr
+            - duchess
+            - duke
+            - esq
+            - father
+            - hon
+            - inspector
+            - lady
+            - lord
+            - lt-col
+            - major
+            - most-rever
+            - pastor
+            - professor
+            - rabbi
+            - rev-dr
+            - reverend
+            - rt-reveren
+            - sir
+            - sister
+            - squadron-l
+            - wg-cdr
+
         firstName:
           description: The candidate's first name
           type: string
@@ -482,6 +780,49 @@ components:
           description: The candidate's phone number
           type: string
           example: "012345678910"
+
+        dateOfBirth:
+          description: The candidate's date of birth in ISO 8601 format (YYYY-MM-DD)
+          type: string
+          format: date
+          example: "1990-01-13"
+
+        niNumber:
+          description: The candidate's National Insurance number
+          type: string
+          pattern: '^[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[A-D]$'
+          example: "AB123456B"
+
+        address:
+          required:
+            - addressLine1
+            - townCity
+            - country
+            - moveIn
+            - moveOut
+          properties:
+            addressLine1:
+              $ref: '#/components/schemas/addressStructure/properties/addressLine1'
+            addressLine2:
+              $ref: '#/components/schemas/addressStructure/properties/addressLine2'
+            townCity:
+              $ref: '#/components/schemas/addressStructure/properties/townCity'
+            county:
+              $ref: '#/components/schemas/addressStructure/properties/county'
+            country:
+              $ref: '#/components/schemas/addressStructure/properties/country'
+            postcode:
+              $ref: '#/components/schemas/addressStructure/properties/postcode'
+            moveIn:
+              description: The candidate's move in date
+              type: string
+              format: date
+              example: "1990-01-13"
+            moveOut:
+              description: The candidate's move out date
+              type: string
+              format: date
+              example: "1995-01-13"
 
         jobTitle:
           description: The candidate's job title
@@ -604,14 +945,6 @@ components:
           type: array
           example:
             - 123e4567-e89b-12d3-a456-426614174000
-
-      required:
-        - firstName
-        - lastName
-        - email
-        - phone
-        - jobTitle
-        - onboardingOption
     #End Create Candidate
 
     #Start Update Candidate
@@ -1134,9 +1467,119 @@ components:
           enum: [ end-of-placement-feedback-default ]
           example: "end-of-placement-feedback-default"
     #End Create Placement Feedback Booking
+
+    #Start Create Booking Note
+    createBookingNote:
+      type: object
+      required:
+        - bookingId
+        - userId
+        - note
+      properties:
+        userId:
+          description: The UUID of the user creating the note
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        note:
+          description: The content of the note you wish to add to the booking
+          type: string
+          example: This is a test note
+    #End Create Booking Note
   #End Booking Schema
 
+  #Start Organisation Schema
+    #Start Create User
+    createUser:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - jobTitle
+        - password
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreUserFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreUserFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreUserFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreUserFields/properties/phone'
+        jobTitle:
+          $ref: '#/components/schemas/coreUserFields/properties/jobTitle'
+        password:
+          $ref: '#/components/schemas/coreUserFields/properties/password'
+    #End Create User
+
+    #Start Update User
+    updateUser:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - jobTitle
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreUserFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreUserFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreUserFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreUserFields/properties/phone'
+        jobTitle:
+          $ref: '#/components/schemas/coreUserFields/properties/jobTitle'
+        password:
+          $ref: '#/components/schemas/coreUserFields/properties/password'
+    #End Update User
+  #End Organisation Schema
+
   #Start General Structure Schema
+    #Start Core User Fields
+    coreUserFields:
+      type: object
+      properties:
+        firstName:
+          description: The user's first name
+          type: string
+          example: Joe
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        lastName:
+          description: The user's last name
+          type: string
+          example: Bloggs
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        email:
+          description: The user's email address
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 64
+          pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+          example: test@test.co.uk
+        phone:
+          description: The user's phone number
+          type: string
+          example: "012345678910"
+        jobTitle:
+          description: The user's job title
+          type: string
+          example: Manager
+        password:
+          description: The user's password
+          type: string
+          minLength: 8
+          maxlength: 32
+          example: password123!
+    #End Core User Fields
+
     #Start Core Booking Fields
     coreBookingFields:
       type: object
@@ -1151,6 +1594,12 @@ components:
           type: string
           format: uuid
           description: The UUID of the user creating the booking
+          example: "123e4567-e89b-12d3-a456-426614174000"
+
+        bookingId:
+          type: string
+          format: uuid
+          description: The UUID of the booking
           example: "123e4567-e89b-12d3-a456-426614174000"
     #End Core Booking Fields
 
