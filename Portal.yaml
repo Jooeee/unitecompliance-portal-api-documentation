@@ -29,21 +29,18 @@ servers:
 tags:
   - name: connection
     description: Connection Testing
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
 
   - name: candidate
     description: Everything related to candidates
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
 
   - name: booking
     description: Everything related to bookings
 
   - name: service information
     description: Information about our services
+
+  - name: user
+    description: Everything related to users
 #Tags Start
 
 #Paths Start
@@ -182,6 +179,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+
   #Booking - Create Clinical Interview
   /booking/create/clinical-interview:
     post:
@@ -203,6 +201,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
 
   #Booking - Create Clinical Appraisal
   /booking/create/clinical-appraisal:
@@ -225,6 +225,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
 
   #Booking - Create Blood Test
   /booking/create/blood-test:
@@ -247,6 +249,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Radiation Badge
   /booking/create/radiation-badge:
@@ -269,6 +273,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Fit to Work
   /booking/create/employment-reference:
@@ -291,6 +297,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Placement Feedback
   /booking/create/placement-feedback:
@@ -313,6 +321,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Fit to Work Check
   /booking/create/fit-to-work-check:
@@ -335,6 +345,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Practical Training
   /booking/create/practical-training:
@@ -357,6 +369,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create DBS Check
   /booking/create/dbs-check:
@@ -379,6 +393,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Right to Work Check
   /booking/create/right-to-work-check:
@@ -401,6 +417,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Digital ID Check
   /booking/create/digital-id-check:
@@ -423,6 +441,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Create Note
   /booking/note/create/{bookingId}:
@@ -451,6 +471,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Cancel
   /booking/cancel/{bookingId}:
@@ -473,6 +495,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Refund
   /booking/refund/{bookingId}/{refundType}:
@@ -504,6 +528,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Booking - Amend
   /booking/amend/{bookingId}:
@@ -526,6 +552,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Service Information - Get Practical Training Schedule
   /service/schedule/{serviceSlug}/{bookingMethodSlug}:
@@ -554,6 +582,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Service Information - Get 121 Training Schedule
   /service/schedule/{serviceSlug}/{bookingMethodSlug}/{date}:
@@ -589,6 +619,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #User - Get list
   /organisation/users:
@@ -604,6 +636,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #User - Create User
   /organisation/user/create:
@@ -625,6 +659,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #User - Update User
   /organisation/user/update/{userId}:
@@ -653,6 +689,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #User - Delete User
   /organisation/user/delete/{userId}:
@@ -675,6 +713,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 #Paths End
 
 #Components Start
@@ -682,7 +722,7 @@ components:
   securitySchemes:
     api-key:
       type: apiKey
-      name: X-API-Key  # or whatever header name you use
+      name: api-key
       in: header
       description: API key for authentication
 
