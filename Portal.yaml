@@ -159,7 +159,7 @@ paths:
       parameters:
         - name: candidateId
           in: path
-          description: The ID of the candidate you wish to add a comment to
+          description: The ID of the candidate you wish to add a note to
           required: true
           schema:
             type: string
@@ -179,6 +179,31 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
 
+  #Candidate - Get Notes
+  /candidate/notes/{candidateId}:
+    get:
+      tags:
+        - candidate
+      summary: Get candidate notes
+      description: Get all notes belonging to a candidate
+      operationId: getCandidateNotes
+      parameters:
+        - name: candidateId
+          in: path
+          description: The ID of the candidate you wish to get the notes of
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+      security:
+        - api-key: [ ]
 
   #Booking - Create Clinical Interview
   /booking/create/clinical-interview:
@@ -698,7 +723,7 @@ paths:
       tags:
         - user
       summary: Delete a user
-      operationId: updateUser
+      operationId: deleteUser
       parameters:
         - name: userId
           in: path
@@ -759,37 +784,37 @@ components:
           description: The candidate's title
           type: string
           enum:
-            - mr
-            - mrs
-            - miss
-            - ms
-            - baron
-            - baroness
-            - brigadier
-            - canon
-            - captain
-            - dr
-            - duchess
-            - duke
-            - esq
-            - father
-            - hon
-            - inspector
-            - lady
-            - lord
-            - lt-col
-            - major
-            - most-rever
-            - pastor
-            - professor
-            - rabbi
-            - rev-dr
-            - reverend
-            - rt-reveren
-            - sir
-            - sister
-            - squadron-l
-            - wg-cdr
+            - MR
+            - MRS
+            - MISS
+            - MS
+            - BARON
+            - BARONESS
+            - BRIGADIER
+            - CANON
+            - CAPTAIN
+            - DR
+            - DUCHESS
+            - DUKE
+            - ESQ
+            - FATHER
+            - HON
+            - INSPECTOR
+            - LADY
+            - LORD
+            - LT COL
+            - MAJOR
+            - MOST REVEREND
+            - PASTOR
+            - PROFESSOR
+            - RABBI
+            - REV DR
+            - REVEREND
+            - RT REVEREND
+            - SIR
+            - SISTER
+            - SQUADRON LEADER
+            - WING COMMANDER
 
         firstName:
           description: The candidate's first name
@@ -819,7 +844,7 @@ components:
         phone:
           description: The candidate's phone number
           type: string
-          example: "4412345678910"
+          example: "+4412345678910"
 
         dateOfBirth:
           description: The candidate's date of birth in ISO 8601 format (YYYY-MM-DD)
@@ -1491,7 +1516,7 @@ components:
               phone:
                 type: string
                 pattern: '^\+[1-9]\d{1,14}$'
-                example: "+923337039502"
+                example: "+44123456789"
               dateFrom:
                 type: string
                 format: date
@@ -1607,7 +1632,7 @@ components:
         phone:
           description: The user's phone number
           type: string
-          example: "012345678910"
+          example: "+44123456789"
         jobTitle:
           description: The user's job title
           type: string
