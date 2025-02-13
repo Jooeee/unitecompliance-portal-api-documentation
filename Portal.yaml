@@ -39,8 +39,14 @@ tags:
   - name: service information
     description: Information about our services
 
-  - name: user
+  - name: organisation user
     description: Everything related to users
+
+  - name: organisation team
+    description: Everything related to teams
+
+  - name: organisation recruitment consultants
+    description: Everything related to recruitment consultants
 #Tags Start
 
 #Paths Start
@@ -194,6 +200,25 @@ paths:
           required: true
           schema:
             type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+      security:
+        - api-key: [ ]
+
+  #Candidate - Get Professions
+  /candidate/professions:
+    get:
+      tags:
+        - candidate
+      summary: Get a list of candidate professions
+      description: Get all candidate professions
+      operationId: getCandidateProfessions
       responses:
         "200":
           description: Successful Operation
@@ -740,6 +765,155 @@ paths:
                 $ref: "#/components/schemas/responses/200"
       security:
         - api-key: [ ]
+
+  #Recruitment Consultant - Create
+  /organisation/recruitment-consultant/create:
+    post:
+      tags:
+        - recruitment consultant
+      summary: Add a recruitment consultant
+      operationId: createRecruitmentConsultant
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Recruitment Consultant - Update
+  /organisation/recruitment-consultant/update/{recruitmentConsultantId}:
+    put:
+      tags:
+        - recruitment consultant
+      summary: Update a recruitment consultant
+      operationId: updateRecruitmentConsultant
+      parameters:
+        - name: recruitmentConsultantId
+          in: path
+          description: The UUID of the recruitment consultant
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Recruitment Consultant - Delete
+  /organisation/recruitment-consultant/delete/{recruitmentConsultantId}:
+    delete:
+      tags:
+        - recruitment consultant
+      summary: Delete a recruitment consultant
+      operationId: deleteRecruitmentConsultant
+      parameters:
+        - name: recruitmentConsultantId
+          in: path
+          description: The UUID of the recruitment consultant
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Recruitment Consultant - Get
+  /organisation/recruitment-consultants:
+    get:
+      tags:
+        - recruitment consultant
+      summary: Get a list of recruitment consultants
+      operationId: getRecruitmentConsultants
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Teams - Create
+  /organisation/team/create:
+    post:
+      tags:
+        - team
+      summary: Create a team
+      operationId: createTeam
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Teams - Update
+  /organisation/team/update/{teamId}:
+    put:
+      tags:
+        - team
+      summary: Update a team
+      operationId: updateTeam
+      parameters:
+        - name: teamId
+          in: path
+          description: The UUID of the team
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Teams - Delete
+  /organisation/team/delete/{teamId}:
+    delete:
+      tags:
+        - team
+      summary: Delete a team
+      operationId: deleteTeam
+      parameters:
+        - name: teamId
+          in: path
+          description: The UUID of the team
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+  #Teams - Get
+  /organisation/teams:
+    put:
+      tags:
+        - team
+      summary: Get a list of teams
+      operationId: getTeams
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
 #Paths End
 
 #Components Start
