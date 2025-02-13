@@ -819,7 +819,7 @@ components:
         phone:
           description: The candidate's phone number
           type: string
-          example: "012345678910"
+          example: "4412345678910"
 
         dateOfBirth:
           description: The candidate's date of birth in ISO 8601 format (YYYY-MM-DD)
