@@ -549,7 +549,7 @@ paths:
 
   #Booking - Cancel
   /booking/cancel/{bookingId}:
-    get:
+    put:
       tags:
         - booking
       summary: Cancel a booking
@@ -924,7 +924,7 @@ paths:
 
   #Teams - Get
   /organisation/teams:
-    put:
+    get:
       tags:
         - team
       summary: Get a list of teams
@@ -1807,6 +1807,12 @@ components:
           $ref: '#/components/schemas/coreUserFields/properties/password'
     #End Update User
   #End Organisation Schema
+
+  #Start Recruitment Consultant Schema
+  #End Recruitment Consultant Schema
+
+  #Start Teams Schema
+  #End Teams Schema
 
   #Start General Structure Schema
     #Start Core User Fields
