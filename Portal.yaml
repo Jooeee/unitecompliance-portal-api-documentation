@@ -1,11 +1,34 @@
 openapi: 3.1.0
 #Info Start
 info:
-  title: Unite Compliance Portal
+  title: Unite Compliance Portal API
   description: |
-    The Unite Compliance Portal RESTful API allows you to fully interact with the Unite Compliance Portal to create and manage: candidates, bookings and retrieve results/documents. To create a sandbox environment, please contact Unite Compliance.
+    The Unite Compliance Portal RESTful API provides comprehensive access to manage your compliance and screening operations. This API enables you to:
+    
+    - Create and manage candidates
+    - Create and manage candidate bookings
+    - Retrieve candidate certificates
+    - Create and manage users
+    - Create and manage teams
+    - Create and manage recruitment consultants
+    - Receive real time notifications for various actions
+    
+    Get Started:
+    1. Contact Unite Compliance to set up your account
+    2. Use your API credentials to authenticate
+    3. Start integrating with our endpoints
+    
+    Last update: 2025-02-13
+    
+    ## Authentication
+    All API calls require an API key for authentication. Include your API key in the request header:
+    ```
+    api-key: your-api-key
+    ```
+    
+    ## Rate Limiting
+    - 1000 requests per minute per API key
 
-    Last update: 2025-02-06
   version: 1.0.0
   termsOfService: https://unitecompliance.co.uk/api-terms-and-conditions
   contact:
