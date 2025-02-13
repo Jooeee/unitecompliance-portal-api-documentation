@@ -326,7 +326,7 @@ paths:
         - api-key: [ ]
 
   #Booking - Create Placement Feedback
-  /booking/create/placement-feedback:
+  /booking/create/end-of-placement-feedback:
     post:
       tags:
         - booking
@@ -1157,7 +1157,7 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
-        services:
+        service:
           type: string
           enum:
             - radiation-badge-body
@@ -1184,6 +1184,7 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
         bookingMethod:
           type: string
+          description: The method of booking. Form will send a form to the candidate to collect the information. Drawer Form will accept all data through the POST request.
           enum:
             - form
             - drawer-form
@@ -1216,14 +1217,22 @@ components:
           $ref: '#/components/schemas/coreBookingFields/properties/candidateId'
         userId:
           $ref: '#/components/schemas/coreBookingFields/properties/userId'
+        service:
+          type: string
+          description: The name of the practical training course required
+          enum:
+            - cstf-mandatory-training
+          example: cstf-mandatory-training
         bookingMethod:
           type: string
+          description: The booking method
           example: zoom
           enum:
             - in-person
             - zoom
-        dateSlot:
-          $ref: '#/components/schemas/bookingDateStructure'
+        scheduleId:
+          type: integer
+          example: 4
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create Practical Training Booking
