@@ -121,8 +121,15 @@ paths:
           description: Successful Operation
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/responses/200"
+              example: {
+                "status": "success",
+                "msg": "Candidate is added.",
+                "data": {
+                  "candidate": {
+                    "id": "9e3395a7-752d-4351-b40b-7af4276f5ad5"
+                  }
+                }
+              }
       security:
         - api-key: []
 
@@ -204,6 +211,15 @@ paths:
           schema:
             type: string
             format: uuid
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              example: {
+                "status": "success",
+                "msg": "Candidate deleted."
+              }
       security:
         - api-key: []
 
@@ -305,7 +321,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: []
 
@@ -329,7 +345,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: []
 
@@ -353,7 +369,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -377,7 +393,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -401,7 +417,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -425,7 +441,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -449,7 +465,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -473,7 +489,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -497,7 +513,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -521,7 +537,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -545,7 +561,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/responses/200"
+                $ref: "#/components/schemas/responses/bookingResponse200"
       security:
         - api-key: [ ]
 
@@ -666,6 +682,7 @@ paths:
       tags:
         - service information
       summary: Get the schedule of a service
+      description: Get the schedule of a service
       operationId: getServiceSchedule
       parameters:
         - name: serviceSlug
@@ -688,7 +705,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/responses/200"
       security:
-        - api-key: [ ]
+        - api-key: []
 
   #Service Information - Get 121 Training Schedule
   /service/schedule/{serviceSlug}/{bookingMethodSlug}/{date}:
@@ -727,6 +744,32 @@ paths:
       security:
         - api-key: [ ]
 
+  #Service Information - Organisation Templates
+  /organisation/templates/{serviceSlug}:
+    get:
+      tags:
+        - service information
+      summary: Get service templates
+      description: Get the available templates for a service. Optionally filter templates by providing a candidate ID.
+      operationId: getOrganisationTemplates
+      parameters:
+        - name: serviceSlug
+          in: path
+          description: The slug of the service
+          required: true
+          schema:
+            type: string
+            enum:
+              - clinical-interview
+              - clinical-appraisal
+        - name: candidateId
+          in: query
+          description: UUID of the candidate to filter templates by their profession (optional)
+          required: false
+          schema:
+            type: string
+            format: uuid
+
   #User - Get list
   /organisation/users:
     get:
@@ -764,8 +807,11 @@ paths:
           description: Successful Operation
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/responses/200"
+              example:
+                status: "success"
+                msg: "The user is saved."
+                data:
+                  id: "9e33a8a0-d181-4971-a677-e5cae7c05bce"
       security:
         - api-key: [ ]
 
@@ -848,8 +894,10 @@ paths:
           description: Successful Operation
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/responses/200"
+              example: {
+                "status": "success",
+                "msg": "The user is deleted."
+              }
       security:
         - api-key: [ ]
 
@@ -2570,6 +2618,51 @@ components:
           example: Unauthorized
 
     responses:
+      bookingResponse200:
+        type: object
+        properties:
+          status:
+            type: string
+            example: success
+          data:
+            type: object
+            properties:
+              booking:
+                type: object
+                properties:
+                  candidateId:
+                    type: string
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  userId:
+                    type: string
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  organisationId:
+                    type: string
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  bookingStatusSlug:
+                    type: string
+                    example: booked
+                  transactionAuthorised:
+                    type: boolean
+                    example: true
+                  id:
+                    type: string
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  referenceId:
+                    type: integer
+                    example: 1001
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    example: 2026-02-13T13:55:23.000000Z
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2026-02-13T13:55:23.000000Z
+                  custom_parameters:
+                    type: array
+                    items: { }
+                    example: [ ]
       "200":
       # Add 200 response
       "400":
