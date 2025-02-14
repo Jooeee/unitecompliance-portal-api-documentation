@@ -131,9 +131,9 @@ paths:
     put:
       tags:
         - candidate
-      summary: Update a candidate
+      summary: Update a candidate fully
       description: Send a PUT request to update a candidate's details
-      operationId: updateCandidate
+      operationId: updateCandidatePut
       parameters:
         - name: candidateId
           in: path
@@ -141,14 +141,43 @@ paths:
           required: true
           schema:
             type: string
-
+            format: uuid
       requestBody:
         description: Send a PUT request to update a candidate's details
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/updateCandidate"
+              $ref: "#/components/schemas/updateCandidatePut"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
+    patch:
+      tags:
+        - candidate
+      summary: Update a candidate by field
+      description: Send a PATCH request to update a candidate's details
+      operationId: updateCandidatePatch
+      parameters:
+        - name: candidateId
+          in: path
+          description: The ID of the candidate that's being updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Send a PATCH request to update a candidate's details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateCandidatePatch"
       responses:
         "200":
           description: Successful Operation
@@ -170,10 +199,11 @@ paths:
       parameters:
         - name: candidateId
           in: path
-          description: The ID of the candidate that's being deleted
+          description: The UUID of the candidate that's being deleted
           required: true
           schema:
             type: string
+            format: uuid
       security:
         - api-key: []
 
@@ -188,10 +218,11 @@ paths:
       parameters:
         - name: candidateId
           in: path
-          description: The ID of the candidate you wish to add a note to
+          description: The UUID of the candidate you wish to add a note to
           required: true
           schema:
             type: string
+            format: uuid
       security:
         - api-key: []
       requestBody:
@@ -219,10 +250,11 @@ paths:
       parameters:
         - name: candidateId
           in: path
-          description: The ID of the candidate you wish to get the notes of
+          description: The UUID of the candidate you wish to get the notes of
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         "200":
           description: Successful Operation
@@ -701,6 +733,7 @@ paths:
       tags:
         - user
       summary: Get a list of users
+      description: Send a GET request to retrieve a list of all users in the organisation
       operationId: getUsers
       responses:
         "200":
@@ -718,6 +751,7 @@ paths:
       tags:
         - user
       summary: Create a user
+      description: Send a POST request to create a user in the organisation
       operationId: createUser
       requestBody:
         required: true
@@ -741,7 +775,8 @@ paths:
       tags:
         - user
       summary: Update a user
-      operationId: updateUser
+      description: Send a PUT request to update all of a user's fields
+      operationId: updateUserPut
       parameters:
         - name: userId
           in: path
@@ -754,7 +789,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateUser'
+              $ref: '#/components/schemas/updateUserPut'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
+
+    patch:
+      tags:
+        - user
+      summary: Update a user
+      operationId: updateUser
+      description: Send a PATCH request to update applicable fields only
+      parameters:
+        - name: userId
+          in: path
+          description: The UUID of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateUserPatch'
       responses:
         "200":
           description: Successful Operation
@@ -816,7 +880,8 @@ paths:
       tags:
         - recruitment consultant
       summary: Update a recruitment consultant
-      operationId: updateRecruitmentConsultant
+      description: Send a PUT request to update all fields
+      operationId: updateRecruitmentConsultantPut
       parameters:
         - name: recruitmentConsultantId
           in: path
@@ -829,7 +894,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateRecruitmentConsultant'
+              $ref: '#/components/schemas/updateRecruitmentConsultantPut'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+    patch:
+      tags:
+        - recruitment consultant
+      summary: Update a recruitment consultant
+      operationId: updateRecruitmentConsultantPatch
+      description: Send a PUT request to update only relevant fields
+      parameters:
+        - name: recruitmentConsultantId
+          in: path
+          description: The UUID of the recruitment consultant
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRecruitmentConsultantPatch'
       responses:
         "200":
           description: Successful Operation
@@ -902,7 +994,8 @@ paths:
       tags:
         - team
       summary: Update a team
-      operationId: updateTeam
+      description: Send a PUT request to update all of a team's fields
+      operationId: updateTeamPut
       parameters:
         - name: teamId
           in: path
@@ -915,7 +1008,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateTeam'
+              $ref: '#/components/schemas/updateTeamPut'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responses/200"
+
+    patch:
+      tags:
+        - team
+      summary: Update a team
+      description: Send a PATCH request to update only relevant fields
+      operationId: updateTeamPatch
+      parameters:
+        - name: teamId
+          in: path
+          description: The UUID of the team
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTeamPatch'
       responses:
         "200":
           description: Successful Operation
@@ -1234,7 +1354,32 @@ components:
     #End Create Candidate
 
     #Start Update Candidate
-    updateCandidate:
+    updateCandidatePut:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - jobTitle
+        - isActive
+      properties:
+        firstName:
+          $ref: '#/components/schemas/createCandidate/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/createCandidate/properties/lastName'
+        email:
+          $ref: '#/components/schemas/createCandidate/properties/email'
+        phone:
+          $ref: '#/components/schemas/createCandidate/properties/phone'
+        jobTitle:
+          $ref: '#/components/schemas/createCandidate/properties/jobTitle'
+        isActive:
+          description: Sets the status of the candidate to active/inactive
+          type: boolean
+          example: true
+
+    updateCandidatePatch:
       type: object
       properties:
         firstName:
@@ -1808,7 +1953,7 @@ components:
     #End Create User
 
     #Start Update User
-    updateUser:
+    updateUserPut:
       type: object
       required:
         - firstName
@@ -1816,6 +1961,25 @@ components:
         - email
         - phone
         - jobTitle
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreUserFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreUserFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreUserFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreUserFields/properties/phone'
+        jobTitle:
+          $ref: '#/components/schemas/coreUserFields/properties/jobTitle'
+        password:
+          $ref: '#/components/schemas/coreUserFields/properties/password'
+
+    updateUserPatch:
+      type: object
+      example:
+        firstName: John
+        lastName: Doe
       properties:
         firstName:
           $ref: '#/components/schemas/coreUserFields/properties/firstName'
@@ -1853,8 +2017,28 @@ components:
     #End Create Recruitment Consultant
 
     #Start Update Recruitment Consultant
-    updateRecruitmentConsultant:
+    updateRecruitmentConsultantPatch:
       type: object
+      example:
+        firstName: John
+        email: newemail@test.co.uk
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/phone'
+
+    updateRecruitmentConsultantPut:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
       properties:
         firstName:
           $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/firstName'
@@ -1888,8 +2072,27 @@ components:
     #End Create Team
 
     #Start Update Team
-    updateTeam:
+    updateTeamPatch:
       type: object
+      example:
+        name: New Team Name
+      properties:
+        name:
+          $ref: '#/components/schemas/coreTeamFields/properties/name'
+        description:
+          $ref: '#/components/schemas/coreTeamFields/properties/description'
+        private:
+          $ref: '#/components/schemas/coreTeamFields/properties/private'
+        userId:
+          $ref: '#/components/schemas/coreTeamFields/properties/userId'
+
+    updateTeamPut:
+      type: object
+      required:
+        - name
+        - description
+        - private
+        - userId
       properties:
         name:
           $ref: '#/components/schemas/coreTeamFields/properties/name'
