@@ -1381,6 +1381,9 @@ components:
 
     updateCandidatePatch:
       type: object
+      example:
+        firstName: John
+        lastName: Doe
       properties:
         firstName:
           $ref: '#/components/schemas/createCandidate/properties/firstName'
