@@ -62,13 +62,13 @@ tags:
   - name: service information
     description: Information about our services
 
-  - name: organisation user
+  - name: user
     description: Everything related to users
 
-  - name: organisation team
+  - name: team
     description: Everything related to teams
 
-  - name: organisation recruitment consultants
+  - name: recruitment consultant
     description: Everything related to recruitment consultants
 #Tags Start
 
@@ -796,6 +796,12 @@ paths:
         - recruitment consultant
       summary: Add a recruitment consultant
       operationId: createRecruitmentConsultant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRecruitmentConsultant'
       responses:
         "200":
           description: Successful Operation
@@ -818,6 +824,12 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRecruitmentConsultant'
       responses:
         "200":
           description: Successful Operation
@@ -839,7 +851,7 @@ paths:
           description: The UUID of the recruitment consultant
           required: true
           schema:
-            type: string
+            type: uuid
       responses:
         "200":
           description: Successful Operation
@@ -870,6 +882,12 @@ paths:
         - team
       summary: Create a team
       operationId: createTeam
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTeam'
       responses:
         "200":
           description: Successful Operation
@@ -892,6 +910,12 @@ paths:
           required: true
           schema:
             type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTeam'
       responses:
         "200":
           description: Successful Operation
@@ -1809,9 +1833,73 @@ components:
   #End Organisation Schema
 
   #Start Recruitment Consultant Schema
+    #Start Create Recruitment Consultant
+    createRecruitmentConsultant:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/phone'
+    #End Create Recruitment Consultant
+
+    #Start Update Recruitment Consultant
+    updateRecruitmentConsultant:
+      type: object
+      properties:
+        firstName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/firstName'
+        lastName:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/lastName'
+        email:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/email'
+        phone:
+          $ref: '#/components/schemas/coreRecruitmentConsultantFields/properties/phone'
+    #End Update Recruitment Consultant
   #End Recruitment Consultant Schema
 
   #Start Teams Schema
+    #Start Create Team
+    createTeam:
+      type: object
+      required:
+        - name
+        - description
+        - private
+        - userId
+      properties:
+        name:
+          $ref: '#/components/schemas/coreTeamFields/properties/name'
+        description:
+          $ref: '#/components/schemas/coreTeamFields/properties/description'
+        private:
+          $ref: '#/components/schemas/coreTeamFields/properties/private'
+        userId:
+          $ref: '#/components/schemas/coreTeamFields/properties/userId'
+    #End Create Team
+
+    #Start Update Team
+    updateTeam:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/coreTeamFields/properties/name'
+        description:
+          $ref: '#/components/schemas/coreTeamFields/properties/description'
+        private:
+          $ref: '#/components/schemas/coreTeamFields/properties/private'
+        userId:
+          $ref: '#/components/schemas/coreTeamFields/properties/userId'
+    #End Update Team
   #End Teams Schema
 
   #Start General Structure Schema
@@ -1855,7 +1943,71 @@ components:
           minLength: 8
           maxlength: 32
           example: password123!
+        userId:
+          type: string
+          format: uuid
+          description: The UUID of the user
+          example: "123e4567-e89b-12d3-a456-426614174000"
     #End Core User Fields
+
+    #Start Core Recruitment Consultant Fields
+    coreRecruitmentConsultantFields:
+      type: object
+      properties:
+        firstName:
+          description: The recruitment consultant's first name
+          type: string
+          example: Joe
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        lastName:
+          description: The recruitment consultant's last name
+          type: string
+          example: Bloggs
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        email:
+          description: The recruitment consultant's email address
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 64
+          pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'
+          example: test@test.co.uk
+        phone:
+          description: recruitment consultant's phone number
+          type: string
+          example: "+44123456789"
+    #End Core Recruitment Consultant Fields
+
+    #Start Core Team Fields
+    coreTeamFields:
+      type: object
+      properties:
+        name:
+          description: The name of the team
+          type: string
+          example: Team Name
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        description:
+          description: The team's description
+          type: string
+          example: This is an example team
+          minLength: 2
+          maxLength: 60
+          pattern: '([A-Z]+)|([A-Z][A-Z &apos;\-]*[A-Z])'
+        private:
+          description: The privacy status of the team
+          type: boolean
+          example: false
+        userId:
+          description: The UUID of the user who administrates the team
+          $ref: '#/components/schemas/coreUserFields/properties/userId'
+    #End Core Team Fields
 
     #Start Core Booking Fields
     coreBookingFields:
