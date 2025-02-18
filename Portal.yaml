@@ -891,15 +891,20 @@ paths:
             type: string
       responses:
         "200":
-          description: Successful Operation
+          description: User deleted successfully
           content:
             application/json:
-              example: {
-                "status": "success",
-                "msg": "The user is deleted."
-              }
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  msg:
+                    type: string
+                    example: The user is deleted
       security:
-        - api-key: [ ]
+        - api-key: []
 
   #Recruitment Consultant - Create
   /organisation/recruitment-consultant/create:
@@ -2337,7 +2342,7 @@ components:
             - percentage
           description: Whether the split is based on currency amount or percentage
           example: currency
-        payment_method:
+        paymentMethod:
           type: string
           enum:
             - invoice
@@ -2659,7 +2664,7 @@ components:
                     type: string
                     format: date-time
                     example: 2026-02-13T13:55:23.000000Z
-                  custom_parameters:
+                  customParameters:
                     type: array
                     items: { }
                     example: [ ]
