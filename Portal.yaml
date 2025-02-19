@@ -769,6 +769,8 @@ paths:
           schema:
             type: string
             format: uuid
+      security:
+        - api-key: []
 
   #User - Get list
   /organisation/users:
@@ -926,6 +928,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
+
 
   #Recruitment Consultant - Update
   /organisation/recruitment-consultant/update/{recruitmentConsultantId}:
@@ -955,6 +960,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
+
 
     patch:
       tags:
@@ -982,6 +990,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Recruitment Consultant - Delete
   /organisation/recruitment-consultant/delete/{recruitmentConsultantId}:
@@ -1004,6 +1014,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Recruitment Consultant - Get
   /organisation/recruitment-consultants:
@@ -1019,6 +1031,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Teams - Create
   /organisation/team/create:
@@ -1040,6 +1054,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Teams - Update
   /organisation/team/update/{teamId}:
@@ -1069,6 +1085,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
     patch:
       tags:
@@ -1096,6 +1114,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Teams - Delete
   /organisation/team/delete/{teamId}:
@@ -1118,6 +1138,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: [ ]
 
   #Teams - Get
   /organisation/teams:
@@ -1133,6 +1155,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
+      security:
+        - api-key: []
 
 #Paths End
 
