@@ -42,7 +42,7 @@ info:
 
 #Servers Start
 servers:
-    - url: https://dev.certifit.io/api
+    - url: https://sandbox.certifit.io/api
       description: Sandbox Server
     - url: https://certifit.io/api
       description: Production Server
