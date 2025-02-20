@@ -2773,4 +2773,121 @@ components:
           application/json:
             schema:
               $ref: "#/components/schemas/errorResponse"
+
+    bookingStatusUpdatePayload:
+      description: Payload received when a booking's status changes
+      type: object
+      properties:
+        bookingId:
+          type: string
+          format: uuid
+          description: Unique identifier of the booking that was updated
+        action:
+          type: string
+          enum: [ booking_status_update ]
+          description: Identifier for the webhook type, will always be 'booking_status_update'
+        bookingStatus:
+          type: string
+          description: The current status of the booking
+          example: "awaiting-candidate"
+
+    bookingNoteAddedPayload:
+      description: Payload received when a note is added to a booking
+      type: object
+      properties:
+        bookingId:
+          type: string
+          format: uuid
+          description: Unique identifier of the booking the note was added to
+        action:
+          type: string
+          enum: [ booking_note_added ]
+          description: Identifier for the webhook type, will always be 'booking_note_added'
+        noteId:
+          type: integer
+          description: Identifier of the newly created note
+          example: 1
+
+    candidateDocumentAddedPayload:
+      description: Payload received when a document is added to a candidate
+      type: object
+      properties:
+        action:
+          type: string
+          enum: [ candidate_document_added ]
+          description: Identifier for the webhook type, will always be 'candidate_document_added'
+        candidateId:
+          type: string
+          format: uuid
+          description: UUID of the candidate the document was added to
+        documentType:
+          type: string
+          description: The type of document that was added
+          example: "certificate-of-fitness"
+        documentId:
+          type: string
+          format: uuid
+          description: Unique identifier of the newly added document
+        bookingId:
+          type: string
+          format: uuid
+          description: Unique identifier of the associated booking
+
+    candidateNoteAddedPayload:
+      description: Payload received when a note is added to a candidate
+      type: object
+      properties:
+        action:
+          type: string
+          enum: [ candidate_note_added ]
+          description: Identifier for the webhook type, will always be 'candidate_note_added'
+        candidateId:
+          type: string
+          format: uuid
+          description: Unique identifier of the candidate the note was added to
+
 #Components End
+#Webhooks Start
+webhooks:
+  booking-status-{booking-status-slug}:
+    post:
+      description: |
+        Booking status update webhook.
+        Example: booking-status-completed, booking-status-booked, booking-status-pending-review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bookingStatusUpdatePayload'
+
+  booking-note-added:
+    post:
+      description: |
+        Booking note added webhook.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bookingNoteAddedPayload'
+
+  candidate-document-added-{document-type-slug}:
+    post:
+      description: |
+        Candidate document added webhook.
+        Example: candidate-document-added-certificate-of-fitness
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/candidateDocumentAddedPayload'
+
+  candidate-note-added:
+    post:
+      description: |
+        Candidate note added webhook.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/candidateNoteAddedPayload'
+#Webhooks End
