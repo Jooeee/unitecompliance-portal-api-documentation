@@ -288,9 +288,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/responses/200"
-
       security:
-        - api-key: [ ]
+        - api-key: []
 
   #Candidate - Get Professions
   /candidate/professions:
