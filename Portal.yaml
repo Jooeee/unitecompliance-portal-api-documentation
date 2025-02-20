@@ -106,10 +106,10 @@ paths:
     get:
       tags:
         - candidate
-      summary: Let a list of candidates
+      summary: Get a list of candidates
       operationId: getCandidates
-    security:
-      - api-key: [ ]
+      security:
+        - api-key: []
 
   #Candidate - Create
   /candidate/create:
