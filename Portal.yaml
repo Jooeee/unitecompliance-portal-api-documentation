@@ -1354,7 +1354,7 @@ components:
                 country: "GB"
                 postcode: "XX1 1XX"
                 moveIn: "2000-01-13"
-                moveOut: "2015-01-13"
+                moveOut: "2020-01-13"
 
         jobTitle:
           description: The candidate's job title
