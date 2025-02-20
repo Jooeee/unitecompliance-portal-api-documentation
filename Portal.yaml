@@ -101,6 +101,14 @@ paths:
       security:
         - api-key: []
 
+  #Candidate - Get
+  /organisation/candidates:
+    get:
+      tags:
+        - candidate
+      summary: Let a list of candidates
+      operationId: getCandidates
+
   #Candidate - Create
   /candidate/create:
     post:
@@ -1191,6 +1199,8 @@ components:
     createCandidate:
       type: object
       required:
+        - userId
+        - title
         - firstName
         - lastName
         - email
@@ -1198,6 +1208,10 @@ components:
         - jobTitle
         - onboardingOption
       properties:
+        userId:
+          description: The UUID of the user creating the candidate
+          $ref: '#/components/schemas/coreBookingFields/properties/userId'
+
         title:
           description: The candidate's title
           type: string
@@ -1316,10 +1330,9 @@ components:
               format: date
               example: "1990-01-13"
             moveOut:
-              description: The candidate's move out date
+              description: The candidate's move out date - Only applicable to previous addresses
               type: string
               format: date
-              example: "1995-01-13"
 
         jobTitle:
           description: The candidate's job title
