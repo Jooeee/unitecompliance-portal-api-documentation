@@ -1343,7 +1343,7 @@ components:
               "townCity": "Town",
               "county": "County",
               "country": "GB",
-              "postcode": "XX1 1XX",
+              "postcode": "AB1 2CD",
               "moveIn": "2020-01-13"
             },
             {
@@ -1353,7 +1353,7 @@ components:
               "townCity": "Town",
               "county": "County",
               "country": "GB",
-              "postcode": "XX1 1XX",
+              "postcode": "AB1 2CD",
               "moveIn": "2000-01-13",
               "moveOut": "2020-01-13"
             }
@@ -2665,7 +2665,7 @@ components:
         postcode:
           type: string
           description: Postcode
-          example: "XX1 1XX"
+          example: "AB1 2CD"
     #End Address Structure
   #End General Structure Schema
 
