@@ -1300,7 +1300,6 @@ components:
 
         addresses:
           type: array
-          minItems: 1
           items:
             type: object
             required:
@@ -1332,29 +1331,33 @@ components:
                 description: The candidate's move in date
                 type: string
                 format: date
-                example: "1990-01-13"
               moveOut:
                 description: The candidate's move out date - Only applicable to previous addresses
                 type: string
                 format: date
-            example:
-              - type: "current"
-                addressLine1: "Address Line 1"
-                addressLine2: "Address Line 2"
-                townCity: "Town"
-                county: "County"
-                country: "GB"
-                postcode: "XX1 1XX"
-                moveIn: "2020-01-13"
-              - type: "previous"
-                addressLine1: "Address Line 1"
-                addressLine2: "Address Line 2"
-                townCity: "Town"
-                county: "County"
-                country: "GB"
-                postcode: "XX1 1XX"
-                moveIn: "2000-01-13"
-                moveOut: "2020-01-13"
+          example: [
+            {
+              "type": "current",
+              "addressLine1": "Address Line 1",
+              "addressLine2": "Address Line 2",
+              "townCity": "Town",
+              "county": "County",
+              "country": "GB",
+              "postcode": "XX1 1XX",
+              "moveIn": "2020-01-13"
+            },
+            {
+              "type": "previous",
+              "addressLine1": "Address Line 1",
+              "addressLine2": "Address Line 2",
+              "townCity": "Town",
+              "county": "County",
+              "country": "GB",
+              "postcode": "XX1 1XX",
+              "moveIn": "2000-01-13",
+              "moveOut": "2020-01-13"
+            }
+          ]
 
         jobTitle:
           description: The candidate's job title
