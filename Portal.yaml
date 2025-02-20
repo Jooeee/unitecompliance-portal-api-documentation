@@ -1276,14 +1276,28 @@ components:
           pattern: '^[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[A-D]$'
           example: "AB123456B"
 
+        gender:
+          description: The candidate's gender
+          type: string
+          enum:
+            - male
+            - female
+            - other
+
         address:
           required:
+            - type
             - addressLine1
             - townCity
             - country
             - moveIn
-            - moveOut
           properties:
+            type:
+              description: The type of address - current or previous
+              type: string
+              enum:
+                - current
+                - previous
             addressLine1:
               $ref: '#/components/schemas/addressStructure/properties/addressLine1'
             addressLine2:
