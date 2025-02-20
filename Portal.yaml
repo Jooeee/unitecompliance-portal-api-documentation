@@ -108,6 +108,8 @@ paths:
         - candidate
       summary: Let a list of candidates
       operationId: getCandidates
+    security:
+      - api-key: [ ]
 
   #Candidate - Create
   /candidate/create:
