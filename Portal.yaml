@@ -1562,6 +1562,8 @@ components:
             - form
             - zoom
             - whatsapp
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
         dateSlot:
@@ -1593,6 +1595,8 @@ components:
             - form
             - zoom
             - whatsapp
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
         dateSlot:
@@ -1644,6 +1648,8 @@ components:
           example: home-test-kit
         address:
           $ref: '#/components/schemas/addressStructure'
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create Blood Test Booking
@@ -1669,6 +1675,8 @@ components:
           example: send-to-candidate
         address:
           $ref: '#/components/schemas/addressStructure'
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create Radiation Badge Booking
@@ -1688,6 +1696,8 @@ components:
             - form
             - drawer-form
           example: form
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
         dateOfBirth:
@@ -1732,6 +1742,8 @@ components:
         scheduleId:
           type: integer
           example: 4
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create Practical Training Booking
@@ -1755,6 +1767,8 @@ components:
           example: ["enhanced-dbs-check"]
           minItems: 1
           required: true
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create DBS Check Booking
@@ -1794,6 +1808,8 @@ components:
               format: date
               description: Date of birth in YYYY-MM-DD format
               example: "1990-01-13"
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
     #End Create Right to Work Check Booking
@@ -1874,6 +1890,8 @@ components:
                 - n
               description: Indicates if the selfie matches the ID document photo
               example: "y"
+          customParameters:
+            $ref: '#/components/schemas/customParameterFields'
           payment:
             $ref: '#/components/schemas/paymentStructure'
 
@@ -1905,6 +1923,8 @@ components:
             count:
               type: integer
               example: 3
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
       required:
@@ -1950,6 +1970,8 @@ components:
           example: form
           enum:
             - form
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
         template:
@@ -2033,6 +2055,8 @@ components:
                 type: string
                 format: date
                 example: "2010-01-01"
+        customParameters:
+          $ref: '#/components/schemas/customParameterFields'
         payment:
           $ref: '#/components/schemas/paymentStructure'
         template:
@@ -2366,6 +2390,26 @@ components:
           format: uuid
           description: The UUID of the booking
           example: "123e4567-e89b-12d3-a456-426614174000"
+
+    customParameterFields:
+      type: object
+      description: Custom parameters that can be added to the booking (maximum of 3)
+      properties:
+        customParam1:
+          type: string
+          description: First custom parameter value
+        customParam2:
+          type: string
+          description: Second custom parameter value
+        customParam3:
+          type: string
+          description: Third custom parameter value
+      maxProperties: 3
+      example:
+        customParam1: "value1"
+        customParam2: "value2"
+        customParam3: "value3"
+
     #End Core Booking Fields
 
     #Start Date Slot Booking Structure
